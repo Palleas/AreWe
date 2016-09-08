@@ -13,7 +13,9 @@
 		7A5E36BC1D808E630001EF53 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7A5E36BA1D808E630001EF53 /* LaunchScreen.storyboard */; };
 		7A5E36CA1D808E7B0001EF53 /* KeyboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A5E36C91D808E7B0001EF53 /* KeyboardViewController.swift */; };
 		7A5E36CE1D808E7B0001EF53 /* AreWeKeyboard.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 7A5E36C71D808E7B0001EF53 /* AreWeKeyboard.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		7A5E36D41D8094C10001EF53 /* ActivityGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A5E36D31D8094C10001EF53 /* ActivityGenerator.swift */; };
+		7A5E36D61D8097270001EF53 /* ActivityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A5E36D51D8097270001EF53 /* ActivityView.swift */; };
+		7AAE97061D80E02D006E4A2F /* ColorPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AAE97051D80E02D006E4A2F /* ColorPicker.swift */; };
+		7AAE97081D80E14D006E4A2F /* UIColor+AWAdditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AAE97071D80E14D006E4A2F /* UIColor+AWAdditions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -50,7 +52,10 @@
 		7A5E36C71D808E7B0001EF53 /* AreWeKeyboard.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = AreWeKeyboard.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		7A5E36C91D808E7B0001EF53 /* KeyboardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardViewController.swift; sourceTree = "<group>"; };
 		7A5E36CB1D808E7B0001EF53 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		7A5E36D31D8094C10001EF53 /* ActivityGenerator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityGenerator.swift; sourceTree = "<group>"; };
+		7A5E36D51D8097270001EF53 /* ActivityView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityView.swift; sourceTree = "<group>"; };
+		7A5E36D71D80979E0001EF53 /* AreWe.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = AreWe.entitlements; sourceTree = "<group>"; };
+		7AAE97051D80E02D006E4A2F /* ColorPicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorPicker.swift; sourceTree = "<group>"; };
+		7AAE97071D80E14D006E4A2F /* UIColor+AWAdditions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+AWAdditions.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -92,12 +97,15 @@
 		7A5E36B01D808E630001EF53 /* AreWe */ = {
 			isa = PBXGroup;
 			children = (
+				7A5E36D71D80979E0001EF53 /* AreWe.entitlements */,
 				7A5E36B11D808E630001EF53 /* AppDelegate.swift */,
 				7A5E36B31D808E630001EF53 /* ActivityViewController.swift */,
 				7A5E36B81D808E630001EF53 /* Assets.xcassets */,
 				7A5E36BA1D808E630001EF53 /* LaunchScreen.storyboard */,
 				7A5E36BD1D808E630001EF53 /* Info.plist */,
-				7A5E36D31D8094C10001EF53 /* ActivityGenerator.swift */,
+				7A5E36D51D8097270001EF53 /* ActivityView.swift */,
+				7AAE97051D80E02D006E4A2F /* ColorPicker.swift */,
+				7AAE97071D80E14D006E4A2F /* UIColor+AWAdditions.swift */,
 			);
 			path = AreWe;
 			sourceTree = "<group>";
@@ -162,6 +170,12 @@
 				TargetAttributes = {
 					7A5E36AD1D808E630001EF53 = {
 						CreatedOnToolsVersion = 7.3.1;
+						DevelopmentTeam = 8VS9JKFDZS;
+						SystemCapabilities = {
+							com.apple.ApplicationGroups.iOS = {
+								enabled = 1;
+							};
+						};
 					};
 					7A5E36C61D808E7B0001EF53 = {
 						CreatedOnToolsVersion = 7.3.1;
@@ -211,9 +225,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7A5E36D41D8094C10001EF53 /* ActivityGenerator.swift in Sources */,
 				7A5E36B41D808E630001EF53 /* ActivityViewController.swift in Sources */,
+				7AAE97061D80E02D006E4A2F /* ColorPicker.swift in Sources */,
 				7A5E36B21D808E630001EF53 /* AppDelegate.swift in Sources */,
+				7A5E36D61D8097270001EF53 /* ActivityView.swift in Sources */,
+				7AAE97081D80E14D006E4A2F /* UIColor+AWAdditions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -334,7 +350,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = AreWe/AreWe.entitlements;
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = AreWe/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.perfectly-cooked.AreWe";
@@ -346,7 +367,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = AreWe/AreWe.entitlements;
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = AreWe/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.perfectly-cooked.AreWe";
@@ -395,6 +421,7 @@
 				7A5E36C21D808E630001EF53 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		7A5E36CF1D808E7B0001EF53 /* Build configuration list for PBXNativeTarget "AreWeKeyboard" */ = {
 			isa = XCConfigurationList;
@@ -403,6 +430,7 @@
 				7A5E36D11D808E7B0001EF53 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

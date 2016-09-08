@@ -8,76 +8,6 @@
 
 import UIKit
 
-final class ActivityView: UIView {
-
-    private let areWeLabel: UILabel = {
-        let label = UILabel()
-        label.text = "Are We".uppercaseString
-        label.font = .boldSystemFontOfSize(80)
-        label.textColor = .whiteColor()
-        label.textAlignment = .Center
-
-        return label
-    }()
-
-    private let activityField: UITextField = {
-        let field = UITextField()
-        field.text = "Eating Tacos".uppercaseString
-        field.textAlignment = .Center
-
-        field.textColor = .yellowColor()
-        field.font = .boldSystemFontOfSize(50)
-
-        return field
-    }()
-
-    private let dateLabel: UILabel = {
-        let label = UILabel()
-        label.text = "Today".uppercaseString
-        label.font = .boldSystemFontOfSize(80)
-        label.textColor = .whiteColor()
-        label.textAlignment = .Center
-
-        return label
-    }()
-
-    private let container = UIStackView()
-
-    init() {
-        super.init(frame: .zero)
-
-        backgroundColor = .blackColor()
-        
-        container.axis = .Vertical
-        container.translatesAutoresizingMaskIntoConstraints = false
-        container.addArrangedSubview(areWeLabel)
-        container.addArrangedSubview(activityField)
-        container.addArrangedSubview(dateLabel)
-
-        addSubview(container)
-
-        NSLayoutConstraint.activateConstraints([
-            container.leftAnchor.constraintEqualToAnchor(leftAnchor),
-            container.rightAnchor.constraintEqualToAnchor(rightAnchor),
-            container.centerYAnchor.constraintEqualToAnchor(centerYAnchor)
-        ])
-    }
-
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-
-    func screenshot() -> UIImage {
-        UIGraphicsBeginImageContextWithOptions(container.layer.frame.size, true, 0.0)
-
-        container.layer.renderInContext(UIGraphicsGetCurrentContext()!)
-        let image = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-
-        return image
-    }
-}
-
 final class ActivityViewController: UIViewController {
 
     override func loadView() {
@@ -91,8 +21,20 @@ final class ActivityViewController: UIViewController {
     }
 
     func didTapDone() {
-        let screenshot = (view as! ActivityView).screenshot()
+        let manager = NSFileManager.defaultManager()
+        let activitiesURL = manager.containerURLForSecurityApplicationGroupIdentifier("group.perfectly-cooked.arewe")?.URLByAppendingPathComponent("activities")
+        let activitiesPath = activitiesURL!.path!
 
+        if !manager.fileExistsAtPath(activitiesPath) {
+            try! manager.createDirectoryAtPath(activitiesPath, withIntermediateDirectories: true, attributes: [:])
+        }
+
+        let screenshot = (view as! ActivityView).screenshot()
+        let data = UIImagePNGRepresentation(screenshot)
+        let filename = NSUUID().UUIDString + ".png"
+        let fullpath = activitiesPath.stringByAppendingString("/\(filename)")
+        print("path = \(fullpath)")
+        try! data?.writeToFile(fullpath, options: .DataWritingAtomic)
     }
 
 }
