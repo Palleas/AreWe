@@ -56,6 +56,7 @@
 		7A5E36D71D80979E0001EF53 /* AreWe.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = AreWe.entitlements; sourceTree = "<group>"; };
 		7AAE97051D80E02D006E4A2F /* ColorPicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorPicker.swift; sourceTree = "<group>"; };
 		7AAE97071D80E14D006E4A2F /* UIColor+AWAdditions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+AWAdditions.swift"; sourceTree = "<group>"; };
+		7AAE970B1D80F4B3006E4A2F /* AreWeKeyboard.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = AreWeKeyboard.entitlements; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -113,6 +114,7 @@
 		7A5E36C81D808E7B0001EF53 /* AreWeKeyboard */ = {
 			isa = PBXGroup;
 			children = (
+				7AAE970B1D80F4B3006E4A2F /* AreWeKeyboard.entitlements */,
 				7A5E36C91D808E7B0001EF53 /* KeyboardViewController.swift */,
 				7A5E36CB1D808E7B0001EF53 /* Info.plist */,
 			);
@@ -179,6 +181,12 @@
 					};
 					7A5E36C61D808E7B0001EF53 = {
 						CreatedOnToolsVersion = 7.3.1;
+						DevelopmentTeam = 8VS9JKFDZS;
+						SystemCapabilities = {
+							com.apple.ApplicationGroups.iOS = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -383,6 +391,7 @@
 		7A5E36D01D808E7B0001EF53 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = AreWeKeyboard/AreWeKeyboard.entitlements;
 				INFOPLIST_FILE = AreWeKeyboard/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.perfectly-cooked.AreWe.AreWeKeyboard";
@@ -394,6 +403,7 @@
 		7A5E36D11D808E7B0001EF53 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = AreWeKeyboard/AreWeKeyboard.entitlements;
 				INFOPLIST_FILE = AreWeKeyboard/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.perfectly-cooked.AreWe.AreWeKeyboard";
