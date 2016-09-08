@@ -17,36 +17,57 @@ final class ActivityViewController: UIViewController {
         self.view = activityView
     }
 
-    override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(animated)
+}
 
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Done, target: self, action: #selector(didTapDone))
+final class SaveToKeyboard: UIActivity {
+    private var image: UIImage?
+
+    override func prepareWithActivityItems(activityItems: [AnyObject]) {
+        image = activityItems
+            .filter { $0 is UIImage }
+            .first as? UIImage
     }
 
-    func didTapDone() {
+    override func activityTitle() -> String? {
+        return "Save to keyboard"
+    }
+
+    override func activityImage() -> UIImage? {
+        return UIImage(named: "share")
+    }
+
+    override func canPerformWithActivityItems(activityItems: [AnyObject]) -> Bool {
+        return !activityItems.filter { $0 is UIImage }.isEmpty
+    }
+
+    override func performActivity() {
+        guard let image = image else { return }
+
         let manager = NSFileManager.defaultManager()
-        let activitiesURL = manager.containerURLForSecurityApplicationGroupIdentifier("group.perfectly-cooked.arewe")?.URLByAppendingPathComponent("activities")
+        let activitiesURL = manager
+            .containerURLForSecurityApplicationGroupIdentifier("group.perfectly-cooked.arewe")?
+            .URLByAppendingPathComponent("activities")
+
         let activitiesPath = activitiesURL!.path!
 
         if !manager.fileExistsAtPath(activitiesPath) {
             try! manager.createDirectoryAtPath(activitiesPath, withIntermediateDirectories: true, attributes: [:])
         }
 
-        let screenshot = (view as! ActivityView).screenshot()
-        let data = UIImagePNGRepresentation(screenshot)
+        let data = UIImagePNGRepresentation(image)
         let filename = NSUUID().UUIDString + ".png"
         let fullpath = activitiesPath.stringByAppendingString("/\(filename)")
-        print("path = \(fullpath)")
         try! data?.writeToFile(fullpath, options: .DataWritingAtomic)
-    }
 
+        self.activityDidFinish(true)
+    }
 }
 
 extension ActivityViewController: ActivityViewDelegate {
     func didTapShare() {
         let screenshot = (view as! ActivityView).screenshot()
 
-        let sharingController = UIActivityViewController(activityItems: [screenshot], applicationActivities: nil)
+        let sharingController = UIActivityViewController(activityItems: [screenshot], applicationActivities: [SaveToKeyboard()])
         presentViewController(sharingController, animated: true, completion: nil)
     }
 }
