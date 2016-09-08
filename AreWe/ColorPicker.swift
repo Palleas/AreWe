@@ -24,6 +24,7 @@ final class ColorPickerItem: UICollectionViewCell {
         colorView.translatesAutoresizingMaskIntoConstraints = false
         colorView.layer.borderColor = UIColor.whiteColor().CGColor
         colorView.layer.borderWidth = 1
+        colorView.layer.cornerRadius = 5
         contentView.addSubview(colorView)
     }
     
@@ -63,7 +64,12 @@ final class ColorPicker: UIView {
         self.callback = callback
         
         super.init(frame: .zero)
-        
+
+        layout.minimumLineSpacing = 5
+        layout.minimumInteritemSpacing = 5
+
+        collectionView.showsHorizontalScrollIndicator = false
+        collectionView.contentInset = UIEdgeInsets(top: 0, left: 5, bottom: 0, right: 5)
         collectionView.delegate = self
         collectionView.dataSource = self
         collectionView.translatesAutoresizingMaskIntoConstraints = false
@@ -79,7 +85,7 @@ final class ColorPicker: UIView {
         super.layoutSubviews()
 
         collectionView.frame = bounds
-        layout.itemSize = CGSize(width: frame.height * 16 / 9, height: frame.height)
+        layout.itemSize = CGSize(width: frame.height * 16 / 9 - 10, height: frame.height - 10)
     }
 }
 

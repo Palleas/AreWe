@@ -12,13 +12,13 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-    private let navigationController = UINavigationController(rootViewController: ActivityViewController())
+    private let rootViewController = ActivityViewController()
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
 
 
         let window = UIWindow(frame: UIScreen.mainScreen().bounds)
-        window.rootViewController = navigationController
+        window.rootViewController = rootViewController
         window.makeKeyAndVisible()
 
         self.window = window

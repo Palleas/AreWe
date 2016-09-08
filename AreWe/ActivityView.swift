@@ -43,7 +43,27 @@ final class ActivityView: UIView {
         return label
     }()
 
-    private let container = UIStackView()
+    private let scrollview: UIScrollView = {
+        let scrollview = UIScrollView()
+        scrollview.translatesAutoresizingMaskIntoConstraints = false
+
+        return scrollview
+    }()
+
+    private let container: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+
+        return view
+    }()
+
+    private let stackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .Vertical
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+
+        return stackView
+    }()
 
     init() {
 
@@ -51,23 +71,41 @@ final class ActivityView: UIView {
 
         backgroundColor = .blackColor()
 
-        container.axis = .Vertical
-        container.translatesAutoresizingMaskIntoConstraints = false
-        container.addArrangedSubview(areWeLabel)
+        stackView.addArrangedSubview(areWeLabel)
 
         picker = ColorPicker { color in
             self.activityField.textColor = color
         }
-        activityField.inputAccessoryView = picker
-        container.addArrangedSubview(activityField)
-        container.addArrangedSubview(dateLabel)
 
-        addSubview(container)
+        activityField.inputAccessoryView = picker
+        activityField.delegate = self
+
+        stackView.addArrangedSubview(activityField)
+        stackView.addArrangedSubview(dateLabel)
+
+        container.addSubview(stackView)
+        scrollview.addSubview(container)
+        addSubview(scrollview)
 
         NSLayoutConstraint.activateConstraints([
-            container.leftAnchor.constraintEqualToAnchor(leftAnchor),
-            container.rightAnchor.constraintEqualToAnchor(rightAnchor),
-            container.centerYAnchor.constraintEqualToAnchor(centerYAnchor)
+            //
+            stackView.leftAnchor.constraintEqualToAnchor(scrollview.leftAnchor),
+            stackView.rightAnchor.constraintEqualToAnchor(scrollview.rightAnchor),
+            stackView.centerYAnchor.constraintEqualToAnchor(container.centerYAnchor),
+
+            //
+            scrollview.leftAnchor.constraintEqualToAnchor(container.leftAnchor),
+            scrollview.rightAnchor.constraintEqualToAnchor(container.rightAnchor),
+            scrollview.topAnchor.constraintEqualToAnchor(container.topAnchor),
+            scrollview.bottomAnchor.constraintEqualToAnchor(container.bottomAnchor),
+            container.heightAnchor.constraintGreaterThanOrEqualToAnchor(heightAnchor),
+
+            //
+            container.widthAnchor.constraintEqualToAnchor(scrollview.widthAnchor),
+            scrollview.leftAnchor.constraintEqualToAnchor(leftAnchor),
+            scrollview.rightAnchor.constraintEqualToAnchor(rightAnchor),
+            scrollview.topAnchor.constraintEqualToAnchor(topAnchor),
+            scrollview.bottomAnchor.constraintEqualToAnchor(bottomAnchor),
         ])
     }
 
@@ -82,12 +120,20 @@ final class ActivityView: UIView {
     }
 
     func screenshot() -> UIImage {
-        UIGraphicsBeginImageContextWithOptions(container.layer.frame.size, true, 0.0)
+        UIGraphicsBeginImageContextWithOptions(stackView.layer.frame.size, true, 0.0)
 
-        container.layer.renderInContext(UIGraphicsGetCurrentContext()!)
+        stackView.layer.renderInContext(UIGraphicsGetCurrentContext()!)
         let image = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
         
         return image
+    }
+}
+
+extension ActivityView: UITextFieldDelegate {
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+
+        return true
     }
 }
