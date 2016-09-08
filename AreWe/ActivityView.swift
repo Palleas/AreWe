@@ -65,6 +65,8 @@ final class ActivityView: UIView {
         return stackView
     }()
 
+    private var heightConstraint: NSLayoutConstraint?
+
     init() {
 
         super.init(frame: .zero)
@@ -87,6 +89,9 @@ final class ActivityView: UIView {
         scrollview.addSubview(container)
         addSubview(scrollview)
 
+        heightConstraint = container.heightAnchor.constraintEqualToAnchor(heightAnchor)
+        heightConstraint?.active = true
+
         NSLayoutConstraint.activateConstraints([
             //
             stackView.leftAnchor.constraintEqualToAnchor(scrollview.leftAnchor),
@@ -98,7 +103,6 @@ final class ActivityView: UIView {
             scrollview.rightAnchor.constraintEqualToAnchor(container.rightAnchor),
             scrollview.topAnchor.constraintEqualToAnchor(container.topAnchor),
             scrollview.bottomAnchor.constraintEqualToAnchor(container.bottomAnchor),
-            container.heightAnchor.constraintGreaterThanOrEqualToAnchor(heightAnchor),
 
             //
             container.widthAnchor.constraintEqualToAnchor(scrollview.widthAnchor),
@@ -107,6 +111,11 @@ final class ActivityView: UIView {
             scrollview.topAnchor.constraintEqualToAnchor(topAnchor),
             scrollview.bottomAnchor.constraintEqualToAnchor(bottomAnchor),
         ])
+
+        let center = NSNotificationCenter.defaultCenter()
+        center.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: UIKeyboardWillHideNotification, object: nil)
+        center.addObserver(self, selector: #selector(keyboardWillShow(_:)), name: UIKeyboardWillShowNotification, object: nil)
+        center.addObserver(self, selector: #selector(keyboardWillChange(_:)), name: UIKeyboardWillChangeFrameNotification, object: nil)
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -128,6 +137,54 @@ final class ActivityView: UIView {
         
         return image
     }
+
+    func keyboardWillShow(note: NSNotification) {
+        guard let userInfo = note.userInfo else { return }
+
+        guard let (duration, frame, animations) = notification(from: userInfo) else { return }
+
+        heightConstraint?.constant = -frame.height
+
+        UIView.animateWithDuration(duration, delay: 0, options: animations, animations: {
+            self.layoutIfNeeded()
+            self.scrollview.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: frame.height, right: 0)
+        }, completion: nil)
+    }
+
+    func keyboardWillHide(note: NSNotification) {
+        guard let userInfo = note.userInfo else { return }
+
+        guard let (duration, _, animations) = notification(from: userInfo) else { return }
+
+        heightConstraint?.constant = 0
+
+        UIView.animateWithDuration(duration, delay: 0, options: animations, animations: {
+            self.layoutIfNeeded()
+            self.scrollview.contentInset = UIEdgeInsetsZero
+        }, completion: nil)
+    }
+
+    func keyboardWillChange(note: NSNotification) {
+        guard let userInfo = note.userInfo else { return }
+
+        guard let (duration, frame, animations) = notification(from: userInfo) else { return }
+
+        UIView.animateWithDuration(duration, delay: 0, options: animations, animations: {
+            self.scrollview.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: frame.height, right: 0)
+        }, completion: nil)
+    }
+}
+
+typealias KeyboardInfo = (NSTimeInterval, CGRect, UIViewAnimationOptions)
+func notification(from userInfo: [NSObject: AnyObject]) ->  KeyboardInfo? {
+    guard let duration = userInfo[UIKeyboardAnimationDurationUserInfoKey]?.doubleValue else { return nil }
+    guard let animationKey = userInfo[UIKeyboardAnimationCurveUserInfoKey] else { return nil }
+
+    let animationOptions = UIViewAnimationOptions(rawValue: UInt(animationKey.integerValue << 16))
+
+    guard let keyboardFrame = userInfo[UIKeyboardFrameEndUserInfoKey]?.CGRectValue()  else { return nil }
+
+    return (duration as NSTimeInterval, keyboardFrame, animationOptions)
 }
 
 extension ActivityView: UITextFieldDelegate {

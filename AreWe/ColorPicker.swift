@@ -36,7 +36,6 @@ final class ColorPickerItem: UICollectionViewCell {
         super.layoutSubviews()
 
         colorView.frame = bounds
-        print("CV = \(colorView)")
     }
 }
 
