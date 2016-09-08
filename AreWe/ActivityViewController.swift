@@ -11,7 +11,10 @@ import UIKit
 final class ActivityViewController: UIViewController {
 
     override func loadView() {
-        view = ActivityView()
+        let activityView = ActivityView()
+        activityView.delegate = self
+
+        self.view = activityView
     }
 
     override func viewWillAppear(animated: Bool) {
@@ -39,3 +42,11 @@ final class ActivityViewController: UIViewController {
 
 }
 
+extension ActivityViewController: ActivityViewDelegate {
+    func didTapShare() {
+        let screenshot = (view as! ActivityView).screenshot()
+
+        let sharingController = UIActivityViewController(activityItems: [screenshot], applicationActivities: nil)
+        presentViewController(sharingController, animated: true, completion: nil)
+    }
+}

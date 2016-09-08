@@ -9,7 +9,14 @@
 import Foundation
 import UIKit
 
+protocol ActivityViewDelegate: class {
+    func didTapShare()
+}
+
 final class ActivityView: UIView {
+
+    weak var delegate: ActivityViewDelegate?
+
     private var picker: ColorPicker?
 
     private let areWeLabel: UILabel = {
@@ -65,6 +72,13 @@ final class ActivityView: UIView {
         return stackView
     }()
 
+    private let shareButton: UIButton = {
+        let button = UIButton(type: .Custom)
+        button.setImage(UIImage(named: "share"), forState: .Normal)
+
+        return button
+    }()
+
     private var heightConstraint: NSLayoutConstraint?
 
     init() {
@@ -84,6 +98,9 @@ final class ActivityView: UIView {
 
         stackView.addArrangedSubview(activityField)
         stackView.addArrangedSubview(dateLabel)
+
+        shareButton.addTarget(self, action: #selector(didTapShareButton), forControlEvents: .TouchUpInside)
+        stackView.addArrangedSubview(shareButton)
 
         container.addSubview(stackView)
         scrollview.addSubview(container)
@@ -172,6 +189,10 @@ final class ActivityView: UIView {
         UIView.animateWithDuration(duration, delay: 0, options: animations, animations: {
             self.scrollview.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: frame.height, right: 0)
         }, completion: nil)
+    }
+
+    func didTapShareButton() {
+        delegate?.didTapShare()
     }
 }
 
