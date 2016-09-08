@@ -7,19 +7,22 @@
 //
 
 import UIKit
+import MobileCoreServices
 
 final class ActivityCell: UITableViewCell {
 
-    private let activityImageView = UIImageView()
+    let activityImageView = UIImageView()
 
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
 
         activityImageView.translatesAutoresizingMaskIntoConstraints = false
-        activityImageView.backgroundColor = .redColor()
+        activityImageView.contentMode = .ScaleAspectFit
         contentView.addSubview(activityImageView)
 
         NSLayoutConstraint.activateConstraints([
+            activityImageView.heightAnchor.constraintEqualToAnchor(heightAnchor, constant: -20),
+            activityImageView.widthAnchor.constraintEqualToAnchor(widthAnchor, constant: -20),
             activityImageView.centerXAnchor.constraintEqualToAnchor(centerXAnchor),
             activityImageView.centerYAnchor.constraintEqualToAnchor(centerYAnchor),
         ])
@@ -41,6 +44,10 @@ class KeyboardViewController: UIInputViewController {
 
         return tableView
     }()
+
+    private var activities = [NSURL]()
+
+    private let cache = NSCache()
 
     override func updateViewConstraints() {
         super.updateViewConstraints()
@@ -73,11 +80,13 @@ class KeyboardViewController: UIInputViewController {
     
         self.nextKeyboardButton.leftAnchor.constraintEqualToAnchor(self.view.leftAnchor).active = true
         self.nextKeyboardButton.bottomAnchor.constraintEqualToAnchor(self.view.bottomAnchor).active = true
-    }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated
+        let manager = NSFileManager.defaultManager()
+        let url = manager.containerURLForSecurityApplicationGroupIdentifier("group.perfectly-cooked.arewe")?.URLByAppendingPathComponent("activities")
+        self.activities = manager
+            .enumeratorAtURL(url!, includingPropertiesForKeys: nil, options: .SkipsSubdirectoryDescendants, errorHandler: nil)?
+            .allObjects as? [NSURL] ?? []
+
     }
 
     override func textWillChange(textInput: UITextInput?) {
@@ -101,11 +110,27 @@ class KeyboardViewController: UIInputViewController {
 
 extension KeyboardViewController: UITableViewDataSource {
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 10
+        return activities.count
     }
 
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("ActivityCell", forIndexPath: indexPath) as! ActivityCell
+        let activity = activities[indexPath.row]
+
+        if let image = cache.objectForKey(indexPath) as? UIImage {
+            cell.activityImageView.image = image
+        } else {
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
+                let imageContent = NSData(contentsOfURL: activity)!
+                guard let image = UIImage(data: imageContent) else { return }
+                self.cache.setObject(image, forKey: indexPath)
+
+                dispatch_async(dispatch_get_main_queue(), { 
+                    let cell = self.tableView.cellForRowAtIndexPath(indexPath) as? ActivityCell
+                    cell?.activityImageView.image = image
+                })
+            }
+        }
 
         return cell
     }
@@ -114,6 +139,12 @@ extension KeyboardViewController: UITableViewDataSource {
 
 extension KeyboardViewController: UITableViewDelegate {
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return view.frame.height * 16 / 9
+        return view.frame.height * 9 / 16
+    }
+
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        guard let image = cache.objectForKey(indexPath) as? UIImage else { return }
+
+        UIPasteboard.generalPasteboard().image = image
     }
 }
