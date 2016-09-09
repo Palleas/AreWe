@@ -152,7 +152,7 @@ final class ActivityView: UIView {
         let image = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
         
-        return image
+        return image!
     }
 
     func keyboardWillShow(note: NSNotification) {

@@ -173,6 +173,7 @@
 					7A5E36AD1D808E630001EF53 = {
 						CreatedOnToolsVersion = 7.3.1;
 						DevelopmentTeam = 8VS9JKFDZS;
+						LastSwiftMigration = 0800;
 						SystemCapabilities = {
 							com.apple.ApplicationGroups.iOS = {
 								enabled = 1;
@@ -182,6 +183,7 @@
 					7A5E36C61D808E7B0001EF53 = {
 						CreatedOnToolsVersion = 7.3.1;
 						DevelopmentTeam = 8VS9JKFDZS;
+						LastSwiftMigration = 0800;
 						SystemCapabilities = {
 							com.apple.ApplicationGroups.iOS = {
 								enabled = 1;
@@ -368,6 +370,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.perfectly-cooked.AreWe";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 2.3;
 			};
 			name = Debug;
 		};
@@ -385,6 +388,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.perfectly-cooked.AreWe";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 2.3;
 			};
 			name = Release;
 		};
@@ -397,6 +401,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.perfectly-cooked.AreWe.AreWeKeyboard";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 2.3;
 			};
 			name = Debug;
 		};
@@ -409,6 +414,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.perfectly-cooked.AreWe.AreWeKeyboard";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 2.3;
 			};
 			name = Release;
 		};
