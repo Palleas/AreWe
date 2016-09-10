@@ -15,7 +15,11 @@
 		7A5E36CE1D808E7B0001EF53 /* AreWeKeyboard.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 7A5E36C71D808E7B0001EF53 /* AreWeKeyboard.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		7A5E36D61D8097270001EF53 /* ActivityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A5E36D51D8097270001EF53 /* ActivityView.swift */; };
 		7AAE97061D80E02D006E4A2F /* ColorPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AAE97051D80E02D006E4A2F /* ColorPicker.swift */; };
-		7AAE97081D80E14D006E4A2F /* UIColor+AWAdditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AAE97071D80E14D006E4A2F /* UIColor+AWAdditions.swift */; };
+		7AD1CC011D839FDF00BC756B /* Common in Resources */ = {isa = PBXBuildFile; fileRef = 7AD1CC001D839FDF00BC756B /* Common */; };
+		7AD1CC021D839FDF00BC756B /* Common in Resources */ = {isa = PBXBuildFile; fileRef = 7AD1CC001D839FDF00BC756B /* Common */; };
+		7AD1CC041D83A00B00BC756B /* UIColor+AWAdditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AD1CC031D83A00B00BC756B /* UIColor+AWAdditions.swift */; };
+		7AD1CC051D83A00B00BC756B /* UIColor+AWAdditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AD1CC031D83A00B00BC756B /* UIColor+AWAdditions.swift */; };
+		7AE2DF001D832015000A99F8 /* KeyboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AE2DEFF1D832015000A99F8 /* KeyboardView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,6 +44,16 @@
 			name = "Embed App Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		7AD1CBFE1D839E1C00BC756B /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
@@ -55,8 +69,10 @@
 		7A5E36D51D8097270001EF53 /* ActivityView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityView.swift; sourceTree = "<group>"; };
 		7A5E36D71D80979E0001EF53 /* AreWe.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = AreWe.entitlements; sourceTree = "<group>"; };
 		7AAE97051D80E02D006E4A2F /* ColorPicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorPicker.swift; sourceTree = "<group>"; };
-		7AAE97071D80E14D006E4A2F /* UIColor+AWAdditions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+AWAdditions.swift"; sourceTree = "<group>"; };
 		7AAE970B1D80F4B3006E4A2F /* AreWeKeyboard.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = AreWeKeyboard.entitlements; sourceTree = "<group>"; };
+		7AD1CC001D839FDF00BC756B /* Common */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Common; sourceTree = "<group>"; };
+		7AD1CC031D83A00B00BC756B /* UIColor+AWAdditions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIColor+AWAdditions.swift"; path = "../Common/UIColor+AWAdditions.swift"; sourceTree = "<group>"; };
+		7AE2DEFF1D832015000A99F8 /* KeyboardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -80,6 +96,7 @@
 		7A5E36A51D808E630001EF53 = {
 			isa = PBXGroup;
 			children = (
+				7AD1CC001D839FDF00BC756B /* Common */,
 				7A5E36B01D808E630001EF53 /* AreWe */,
 				7A5E36C81D808E7B0001EF53 /* AreWeKeyboard */,
 				7A5E36AF1D808E630001EF53 /* Products */,
@@ -106,7 +123,7 @@
 				7A5E36BD1D808E630001EF53 /* Info.plist */,
 				7A5E36D51D8097270001EF53 /* ActivityView.swift */,
 				7AAE97051D80E02D006E4A2F /* ColorPicker.swift */,
-				7AAE97071D80E14D006E4A2F /* UIColor+AWAdditions.swift */,
+				7AD1CC031D83A00B00BC756B /* UIColor+AWAdditions.swift */,
 			);
 			path = AreWe;
 			sourceTree = "<group>";
@@ -117,6 +134,7 @@
 				7AAE970B1D80F4B3006E4A2F /* AreWeKeyboard.entitlements */,
 				7A5E36C91D808E7B0001EF53 /* KeyboardViewController.swift */,
 				7A5E36CB1D808E7B0001EF53 /* Info.plist */,
+				7AE2DEFF1D832015000A99F8 /* KeyboardView.swift */,
 			);
 			path = AreWeKeyboard;
 			sourceTree = "<group>";
@@ -132,6 +150,7 @@
 				7A5E36AB1D808E630001EF53 /* Frameworks */,
 				7A5E36AC1D808E630001EF53 /* Resources */,
 				7A5E36D21D808E7B0001EF53 /* Embed App Extensions */,
+				7AD1CBFE1D839E1C00BC756B /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -218,6 +237,7 @@
 			files = (
 				7A5E36BC1D808E630001EF53 /* LaunchScreen.storyboard in Resources */,
 				7A5E36B91D808E630001EF53 /* Assets.xcassets in Resources */,
+				7AD1CC011D839FDF00BC756B /* Common in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -225,6 +245,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7AD1CC021D839FDF00BC756B /* Common in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -239,7 +260,7 @@
 				7AAE97061D80E02D006E4A2F /* ColorPicker.swift in Sources */,
 				7A5E36B21D808E630001EF53 /* AppDelegate.swift in Sources */,
 				7A5E36D61D8097270001EF53 /* ActivityView.swift in Sources */,
-				7AAE97081D80E14D006E4A2F /* UIColor+AWAdditions.swift in Sources */,
+				7AD1CC041D83A00B00BC756B /* UIColor+AWAdditions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -248,6 +269,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				7A5E36CA1D808E7B0001EF53 /* KeyboardViewController.swift in Sources */,
+				7AD1CC051D83A00B00BC756B /* UIColor+AWAdditions.swift in Sources */,
+				7AE2DF001D832015000A99F8 /* KeyboardView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -310,7 +333,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -349,7 +372,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
