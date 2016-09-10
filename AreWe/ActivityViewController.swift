@@ -11,6 +11,7 @@ import UIKit
 final class ActivityViewController: UIViewController {
 
     override func loadView() {
+        print("Coucou = \(UIPasteboard.generalPasteboard().items)")
         let activityView = ActivityView()
         activityView.delegate = self
 
